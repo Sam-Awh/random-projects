@@ -9,6 +9,7 @@ from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from google.protobuf.json_format import MessageToDict
+# import screen_brightness_control as sbcontrol
 
 pyautogui.FAILSAFE = False
 mp_drawing = mp.solutions.drawing_utils
@@ -161,7 +162,7 @@ class HandRecog:
             try:
                 ratio = round(dist/dist2,1)
             except:
-                ratio = round(dist1/0.01,1)
+                ratio = round(dist/0.01,1)
 
             self.finger = self.finger << 1
             if ratio > 0.5 :
@@ -286,18 +287,28 @@ class Controller:
         dist = round((hand_result.landmark[8].x - Controller.pinchstartxcoord)*10,1)
         return dist
     
-    def changesystemvolume():
-        """sets system volume based on 'Controller.pinchlv'."""
-        devices = AudioUtilities.GetSpeakers()
-        interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-        volume = cast(interface, POINTER(IAudioEndpointVolume))
-        currentVolumeLv = volume.GetMasterVolumeLevelScalar()
-        currentVolumeLv += Controller.pinchlv/50.0
-        if currentVolumeLv > 1.0:
-            currentVolumeLv = 1.0
-        elif currentVolumeLv < 0.0:
-            currentVolumeLv = 0.0
-        volume.SetMasterVolumeLevelScalar(currentVolumeLv, None)
+    # def changesystembrightness():
+    #     """sets system brightness based on 'Controller.pinchlv'."""
+    #     currentBrightnessLv = sbcontrol.get_brightness(display=0)/100.0
+    #     currentBrightnessLv += Controller.pinchlv/50.0
+    #     if currentBrightnessLv > 1.0:
+    #         currentBrightnessLv = 1.0
+    #     elif currentBrightnessLv < 0.0:
+    #         currentBrightnessLv = 0.0       
+    #     sbcontrol.fade_brightness(int(100*currentBrightnessLv) , start = sbcontrol.get_brightness(display=0))
+    
+    # def changesystemvolume():
+    #     """sets system volume based on 'Controller.pinchlv'."""
+    #     devices = AudioUtilities.GetSpeakers()
+    #     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    #     volume = cast(interface, POINTER(IAudioEndpointVolume))
+    #     currentVolumeLv = volume.GetMasterVolumeLevelScalar()
+    #     currentVolumeLv += Controller.pinchlv/50.0
+    #     if currentVolumeLv > 1.0:
+    #         currentVolumeLv = 1.0
+    #     elif currentVolumeLv < 0.0:
+    #         currentVolumeLv = 0.0
+    #     volume.SetMasterVolumeLevelScalar(currentVolumeLv, None)
     
     def scrollVertical():
         """scrolls on screen vertically."""
