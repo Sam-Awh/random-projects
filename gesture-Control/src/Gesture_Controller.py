@@ -9,7 +9,6 @@ from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from google.protobuf.json_format import MessageToDict
-import screen_brightness_control as sbcontrol
 
 pyautogui.FAILSAFE = False
 mp_drawing = mp.solutions.drawing_utils
@@ -286,16 +285,6 @@ class Controller:
         """returns distance beween starting pinch x coord and current hand position x coord."""
         dist = round((hand_result.landmark[8].x - Controller.pinchstartxcoord)*10,1)
         return dist
-    
-    def changesystembrightness():
-        """sets system brightness based on 'Controller.pinchlv'."""
-        currentBrightnessLv = sbcontrol.get_brightness(display=0)/100.0
-        currentBrightnessLv += Controller.pinchlv/50.0
-        if currentBrightnessLv > 1.0:
-            currentBrightnessLv = 1.0
-        elif currentBrightnessLv < 0.0:
-            currentBrightnessLv = 0.0       
-        sbcontrol.fade_brightness(int(100*currentBrightnessLv) , start = sbcontrol.get_brightness(display=0))
     
     def changesystemvolume():
         """sets system volume based on 'Controller.pinchlv'."""
