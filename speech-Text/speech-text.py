@@ -12,3 +12,4 @@ except sr.UnknownValueError:
     print("System could not understand audio")
 except sr.RequestError as e:
     print("Could not request results from API; {0}".format(e))
+    

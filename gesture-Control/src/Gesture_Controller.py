@@ -2,14 +2,11 @@
 
 import cv2
 import mediapipe as mp
+import sys
 import pyautogui
 import math
 from enum import IntEnum
-from ctypes import cast, POINTER
-from comtypes import CLSCTX_ALL
-from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from google.protobuf.json_format import MessageToDict
-# import screen_brightness_control as sbcontrol
 
 pyautogui.FAILSAFE = False
 mp_drawing = mp.solutions.drawing_utils
@@ -462,12 +459,6 @@ class Controller:
                 Controller.pinchminorflag = True
             Controller.pinch_control(hand_result,Controller.scrollHorizontal, Controller.scrollVertical)
         
-        elif gesture == Gest.PINCH_MAJOR:
-            if Controller.pinchmajorflag == False:
-                Controller.pinch_control_init(hand_result)
-                Controller.pinchmajorflag = True
-            Controller.pinch_control(hand_result,Controller.changesystembrightness, Controller.changesystemvolume)
-        
 '''
 ----------------------------------------  Main Class  ----------------------------------------
     Entry point of Gesture Controller
@@ -555,7 +546,7 @@ class GestureController:
         handmajor = HandRecog(HLabel.MAJOR)
         handminor = HandRecog(HLabel.MINOR)
 
-        with mp_hands.Hands(max_num_hands = 2,min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
+        with mp_hands.Hands(max_num_hands = 1,min_detection_confidence=0.7, min_tracking_confidence=0.7) as hands:
             while GestureController.cap.isOpened() and GestureController.gc_mode:
                 success, image = GestureController.cap.read()
 
