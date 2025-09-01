@@ -1,0 +1,28 @@
+{
+    "camera_index": 0,
+    "frame_width": 640,
+    "frame_height": 480,
+    "target_fps": 60,
+    "sensitivity_x": 1.4,
+    "sensitivity_y": 1.6,
+    "smoothing_factor": 0.5,
+    "show_acceleration_debug": true,
+    "acceleration": {
+        "enable_acceleration": true,
+        "enable_face_movement_acceleration": true,
+        "enable_gaze_velocity_acceleration": true,
+        "face_movement_threshold": 0.05,
+        "face_rotation_threshold": 5.0,
+        "face_acceleration_multiplier": 2.5,
+        "gaze_velocity_threshold": 200.0,
+        "max_gaze_velocity": 800.0,
+        "min_acceleration_factor": 1.0,
+        "max_acceleration_factor": 3.5,
+        "large_movement_threshold": 100.0,
+        "directional_acceleration_multiplier": 1.8,
+        "acceleration_curve_type": "quadratic",
+        "acceleration_smoothing": 0.3,
+        "velocity_window_size": 5,
+        "velocity_time_threshold": 0.05
+    }
+}
